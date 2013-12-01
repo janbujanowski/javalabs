@@ -1,0 +1,3 @@
+rootProject.name = 'Lab9'
+
+include 'Beans', 'Controls', 'App', 'Test'

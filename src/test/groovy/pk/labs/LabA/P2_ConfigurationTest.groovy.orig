@@ -1,0 +1,107 @@
+package pk.labs.LabA
+
+import spock.lang.*
+
+import org.springframework.beans.factory.BeanCreationException
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.context.ApplicationContext
+import org.springframework.test.annotation.DirtiesContext
+import org.springframework.test.context.ContextConfiguration
+
+import pk.labs.LabA.Contracts.*
+<<<<<<< HEAD
+import pk.labs.LabA.ui.MainFrame;
+=======
+>>>>>>> dda6cab9339b5369c1d6d6254b3c66ee2b524672
+
+@ContextConfiguration(locations = '/META-INF/spring/beans.xml')
+class P2_ConfigurationTest extends Specification {
+	
+	@Autowired
+	Display display
+	
+	@Autowired
+	ControlPanel controlPanel
+	
+	@Autowired
+	MainFrame mainFrame
+	
+	@Autowired
+	ApplicationContext context
+	
+	def "Display implementation should be configured"() {
+		expect:
+		display != null
+	}
+	
+	def "ControlPanel implementation should be configured"() {
+		expect:
+		controlPanel != null
+	}
+	
+	def "Main component implementation should be configured"() {
+		expect:
+		context.getBean('main-component') != null
+	}
+	
+	def "MainFrame should be configured"() {
+		expect:
+		mainFrame != null
+	}
+	
+	def "MainFrame should have injected display panel"() {
+		when:
+		def panel = mainFrame.displayPanel
+		
+		then:
+		assert panel != null
+		assert panel.is(display.panel)
+	}
+	
+	def "MainFrame should have injected control panel"() {
+		when:
+		def panel = mainFrame.controlPanelPanel
+		
+		then:
+		assert panel != null
+		assert panel.is(controlPanel.panel)
+	}
+	
+	@DirtiesContext
+	def "Display component should not depend on other components"() {
+		given:
+		def beanName = context.getBeanNamesForType(ControlPanel.class)[0]
+		
+		when:
+		context.removeBeanDefinition(beanName)
+		context.removeBeanDefinition('main-component')
+		def bean = context.getBean(Display.class)
+		
+		then:
+		notThrown(BeanCreationException)
+		assert bean != null
+	}
+	
+	@DirtiesContext
+	def "Main component should depend on display component"() {
+		given:
+		def beanName = context.getBeanNamesForType(Display.class)[0]
+		
+		when:
+		context.removeBeanDefinition(beanName)
+		context.getBean('main-component')
+		
+		then:
+		thrown(BeanCreationException)
+	}
+	
+	@DirtiesContext
+	def "Control panel component should depend on main component"() {
+		when:
+		context.removeBeanDefinition('main-component')
+		context.getBean(ControlPanel.class)
+		
+		then:
+		thrown(BeanCreationException)
+	}
+}

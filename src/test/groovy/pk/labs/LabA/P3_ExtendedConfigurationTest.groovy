@@ -1,5 +1,6 @@
 package pk.labs.LabA
 
+import org.springframework.beans.factory.BeanCreationException
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.ApplicationContext
@@ -73,5 +74,10 @@ class P3_ExtendedConfigurationTest extends Specification {
 		then:
 		assert frame.title != 'SecondHand'
 	}
+
+    def "Alias app-frame should point to silly frame bean"() {
+        expect:
+        context.getBean("app-frame").class == context.getBean(sillyFrameBeanName).class
+    }
 	
 }

@@ -47,6 +47,17 @@ class P2_ConfigurationTest extends Specification {
 		expect:
 		mainFrame != null
 	}
+
+    def "Alias app-frame should point to main frame bean or silly frame bean"() {
+        when:
+        def frames = [context.getBean(mainFrameBeanName).class]
+        try {
+            frames << context.getBean(sillyFrameBeanName).class
+        } catch(BeanCreationException ex) { }
+
+        then:
+        context.getBean("app-frame").class in frames
+    }
 	
 	def "MainFrame should have injected display panel"() {
 		when:

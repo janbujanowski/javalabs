@@ -1,7 +1,5 @@
 package pk.labs.LabB;
 
-import pk.labs.LabB.Contracts.*;
-
 public class LabDescriptor {
 
     // region P1

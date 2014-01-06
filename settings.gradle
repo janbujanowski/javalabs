@@ -2,7 +2,7 @@ rootProject.name = 'pk.labs.LabC'
 
 include 'actions'
 include 'animal1'
-include 'animal1'
+include 'animal2'
 include 'animal3'
 include 'contracts'
 include 'logger'

@@ -1,0 +1,64 @@
+buildscript {
+    repositories {
+        maven { url 'http://repo.springsource.org/plugins-release' }
+    }
+    dependencies {
+        classpath 'org.springframework.build.gradle:propdeps-plugin:+'
+    }
+}
+
+allprojects {
+    apply plugin: 'java'
+    repositories {
+        mavenCentral()
+    }
+}
+
+ext {
+    osgiProjects = subprojects.findAll { new File(it.projectDir, 'osgi.properties').exists() }
+}
+
+subprojects {
+    version = '1.0.0'
+
+    if (project in osgiProjects) {
+        apply plugin: 'osgi'
+        apply plugin: 'propdeps'
+
+        jar {
+            manifest {
+                from 'osgi.properties'
+                instruction 'Export-Package',  "!${symbolicName}.internal.*,${symbolicName}.*;version=$version"
+                instruction 'Private-Package', "${symbolicName}.internal.*"
+            }
+        }
+
+        dependencies {
+            optional 'org.osgi:osgi_R4_core:+'
+            optional 'org.osgi:osgi_R4_compendium:+'
+        }
+    }
+}
+
+dependencies {
+    runtime 'org.ops4j.pax.runner:pax-runner:+', 'org.slf4j:slf4j-simple:+'
+}
+
+task collectBundles(type: Copy, dependsOn: subprojects.assemble) {
+    fileTree(dir: 'bundles', include: '*.jar').files*.delete()
+    osgiProjects.each {
+        from it.jar.archivePath.path
+    }
+    into 'bundles'
+}
+
+task console(type: JavaExec, dependsOn: collectBundles) {
+    classpath = configurations.runtime
+    main = 'org.ops4j.pax.runner.Run'
+    args = ['--platform=felix', '--clean', "scan-dir:${rootDir}/bundles!/*.jar"]
+    standardInput = System.in
+}
+
+project('test') {
+    test.dependsOn collectBundles
+}

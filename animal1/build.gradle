@@ -1,0 +1,4 @@
+dependencies {
+    provided project(':contracts')
+    provided project(':logger')
+}

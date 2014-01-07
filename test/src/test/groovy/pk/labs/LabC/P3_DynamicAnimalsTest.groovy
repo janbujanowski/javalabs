@@ -40,7 +40,6 @@ public class P3_DynamicAnimalsTest {
             bundle('file:../bundles/animal1-1.0.0.jar'),
             bundle('file:../bundles/animal2-1.0.0.jar'),
             bundle('file:../bundles/animal3-1.0.0.jar'),
-            bundle('file:../bundles/actions-1.0.0.jar'),
             bundle('file:../bundles/zoo-1.0.0.jar')
 		] as Option[]
 	}

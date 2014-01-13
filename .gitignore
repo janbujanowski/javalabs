@@ -1,0 +1,7 @@
+.*
+*.iml
+*~
+build
+bundles
+runner
+felix-cache

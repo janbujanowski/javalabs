@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.osgi.org/xmlns/scr/v1.1.0" name="zooFrame">
+	<implementation class="pk.labs.LabD.zoo.ZooFrame" />
+	<reference
+			name="logger"
+			interface="pk.labs.LabD.contracts.Logger"
+			bind="bindLogger"
+			unbind="unbindLogger"/>
+	<reference
+			name="zoo"
+			interface="pk.labs.LabD.zoo.Zoo"
+			bind="bindZoo"/>
+</component>

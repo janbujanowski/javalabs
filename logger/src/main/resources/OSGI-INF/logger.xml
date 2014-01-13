@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.osgi.org/xmlns/scr/v1.1.0" name="logger">
+	<implementation class="pk.labs.LabD.logger.internal.LoggerImpl" />
+	<service>
+		<provide interface="pk.labs.LabD.contracts.Logger"/>
+	</service>
+</component>

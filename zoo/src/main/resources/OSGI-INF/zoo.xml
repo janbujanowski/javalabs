@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.osgi.org/xmlns/scr/v1.1.0" name="zoo">
+	<implementation class="pk.labs.LabD.zoo.Zoo" />
+	<service>
+		<provide interface="pk.labs.LabD.zoo.Zoo"/>
+	</service>
+</component>

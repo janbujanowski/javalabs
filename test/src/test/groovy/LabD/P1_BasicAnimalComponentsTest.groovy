@@ -63,12 +63,12 @@ public class P1_BasicAnimalComponentsTest {
 
 	@Test
 	void "Animal2 component should exist in its own bundle"() {
-		testAnimalExistence 'pk.labs.LabD.animal1'
+		testAnimalExistence 'pk.labs.LabD.animal2'
 	}
 
 	@Test
 	void "Animal3 component should exist in its own bundle"() {
-		testAnimalExistence 'pk.labs.LabD.animal1'
+		testAnimalExistence 'pk.labs.LabD.animal3'
 	}
 
 	@Test

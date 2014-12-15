@@ -6,6 +6,10 @@ package pk.labs.Lab9.ui;
 
 import pk.labs.Lab9.beans.*;
 
+import java.beans.PropertyVetoException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author mikus
@@ -94,7 +98,13 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addConsultationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addConsultationButtonActionPerformed
-        // własny kod
+        Consultation cons = this.consultationPanel.getConsultation();
+        try {
+            this.consultationList.addConsultation(cons);
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.consultationListPanel.setConsultationList(this.consultationList);
     }//GEN-LAST:event_addConsultationButtonActionPerformed
 
     public void setConsultationList(ConsultationList consultationList) {

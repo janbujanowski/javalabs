@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_25" class="java.beans.XMLDecoder">
+ <object class="pk.labs.Lab9.beans.impl.ConsultationImpl">
+  <void property="student">
+   <string>Ambroży Kleks</string>
+  </void>
+  <void property="term">
+   <object class="pk.labs.Lab9.beans.impl.TermImpl">
+    <void property="begin">
+     <object class="java.util.Date">
+      <long>971442720000</long>
+     </object>
+    </void>
+    <void property="duration">
+     <int>14</int>
+    </void>
+   </object>
+  </void>
+ </object>
+</java>

@@ -44,7 +44,7 @@ public class ConsultationListTableModel extends AbstractTableModel implements Pr
         }
         return null;
     }
-    
+
     @Override
     public int getRowCount() {
         if (consultations == null)
@@ -110,6 +110,6 @@ public class ConsultationListTableModel extends AbstractTableModel implements Pr
         }
         return button;
     }
-    
-    
+
+
 }

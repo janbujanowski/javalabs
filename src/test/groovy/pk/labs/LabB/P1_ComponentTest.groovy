@@ -47,4 +47,12 @@ class P1_ComponentTest extends Specification {
         where:
         impl << [ LabDescriptor.displayImplClassName, LabDescriptor.controlPanelImplClassName, LabDescriptor.mainComponentImplClassName ]
     }
+    
+    def "Component implementation should not directly inherit from java Component"() {
+        expect:
+        !Component.isAssignableFrom(Class.forName(impl))
+
+        where:
+        impl << [ LabDescriptor.displayImplClassName, LabDescriptor.controlPanelImplClassName, LabDescriptor.mainComponentImplClassName ]
+    }
 }

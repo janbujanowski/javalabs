@@ -1,6 +1,7 @@
 package pk.labs.LabA
 
-import java.lang.reflect.Modifier;
+import java.lang.reflect.Modifier
+import java.awt.Component
 
 import spock.lang.*
 
@@ -48,10 +49,10 @@ class P1_ComponentTest extends Specification {
 	}
 	
 	def "Component implementation should not directly inherit from java Component"() {
-        expect:
-        !Component.isAssignableFrom(Class.forName(impl))
+		expect:
+		!Component.isAssignableFrom(Class.forName(impl))
 
-        where:
-        impl << [ LabDescriptor.displayImplClassName, LabDescriptor.controlPanelImplClassName, LabDescriptor.mainComponentImplClassName ]
-    }
+		where:
+		impl << [ LabDescriptor.displayImplClassName, LabDescriptor.controlPanelImplClassName, LabDescriptor.mainComponentImplClassName ]
+	}
 }

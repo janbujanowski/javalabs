@@ -1,11 +1,13 @@
 package pk.labs.LabB
 
-import java.lang.reflect.Modifier;
+import java.lang.reflect.Modifier
+
+import java.awt.Component
 
 import spock.lang.*
 
 import pk.labs.LabB.Contracts.*
-import pk.labs.LabB.LabDescriptor;
+
 
 class P1_ComponentTest extends Specification {
 

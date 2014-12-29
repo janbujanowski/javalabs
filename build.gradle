@@ -12,8 +12,8 @@ repositories {
 }
 
 ext {
-    springVersion = '3.2.5.RELEASE'
-    aspectjVersion = '1.7.4'
+    springVersion = '4.+'
+    aspectjVersion = '1.8.4'
     spockVersion = '0.7-groovy-2.0'
 }
 

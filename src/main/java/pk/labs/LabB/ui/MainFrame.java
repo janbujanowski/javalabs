@@ -1,7 +1,9 @@
 package pk.labs.LabB.ui;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import pk.labs.LabB.Contracts.*;
-
+@Component("main-frame")
 public class MainFrame extends AbstractMainFrame {
 
 	private Display display;
@@ -11,7 +13,7 @@ public class MainFrame extends AbstractMainFrame {
         super();
         setTitle("Primary");
     }
-
+ @Autowired
     public void setDisplay(Display display) {
 		this.display = display;
     	if (displayPanel != null)
@@ -20,7 +22,7 @@ public class MainFrame extends AbstractMainFrame {
     	getContentPane().add(displayPanel, java.awt.BorderLayout.NORTH);
     	pack();
     }
-    
+	@Autowired
     public void setControlPanel(ControlPanel controlPanel) {
 		this.control = controlPanel;
     	if (this.controlPanel != null)

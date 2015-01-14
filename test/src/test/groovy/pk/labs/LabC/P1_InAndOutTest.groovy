@@ -7,7 +7,10 @@ import org.ops4j.pax.exam.Option
 import org.ops4j.pax.exam.junit.PaxExam
 import org.ops4j.pax.exam.spi.reactors.ExamReactorStrategy
 import org.ops4j.pax.exam.spi.reactors.PerMethod
+import org.ops4j.pax.exam.spi.reactors.PerSuite
 import org.osgi.framework.BundleContext
+
+import javax.swing.JOptionPane
 
 import static org.junit.Assert.*
 
@@ -15,10 +18,11 @@ import javax.inject.Inject
 
 import static org.ops4j.pax.exam.CoreOptions.*
 
-@RunWith(PaxExam.class)
-@ExamReactorStrategy(PerMethod.class)
-public class P1_InAndOutTest {
+import static Utils.*
 
+@RunWith(PaxExam.class)
+@ExamReactorStrategy(PerSuite.class)
+public class P1_InAndOutTest {
 	@Inject
 	BundleContext context
 
@@ -27,15 +31,9 @@ public class P1_InAndOutTest {
 	@Configuration
 	Option[] configure() {
 		[
-            junitBundles(),
-            mavenBundle('org.codehaus.groovy', 'groovy-all'),
-            bundle('file:../bundles/logger-1.0.0.jar'),
-            bundle('file:../bundles/contracts-1.0.0.jar'),
-            bundle('file:../bundles/animal1-1.0.0.jar'),
-            bundle('file:../bundles/animal2-1.0.0.jar'),
-            bundle('file:../bundles/animal3-1.0.0.jar'),
-            bundle('file:../bundles/zoo-1.0.0.jar')
-		] as Option[]
+			junitBundles(),
+            mavenBundle('org.codehaus.groovy', 'groovy-all')
+		] + allBundles('../bundles') as Option[]
 	}
 
 	@Before

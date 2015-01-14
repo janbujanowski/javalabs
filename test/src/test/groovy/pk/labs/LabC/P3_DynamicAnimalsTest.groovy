@@ -8,18 +8,19 @@ import org.ops4j.pax.exam.Configuration
 import org.ops4j.pax.exam.junit.PaxExam
 import org.ops4j.pax.exam.spi.reactors.ExamReactorStrategy
 import org.ops4j.pax.exam.spi.reactors.PerMethod
+import org.ops4j.pax.exam.spi.reactors.PerSuite
 import org.osgi.framework.BundleContext
 
 import javax.inject.Inject
 
 import static org.junit.Assert.assertEquals
-import static org.ops4j.pax.exam.CoreOptions.allKnopflerfishVersions
 import static org.ops4j.pax.exam.CoreOptions.junitBundles
 import static org.ops4j.pax.exam.CoreOptions.mavenBundle
 import static org.ops4j.pax.exam.CoreOptions.bundle
+import static pk.labs.LabC.Utils.allBundles
 
 @RunWith(PaxExam.class)
-@ExamReactorStrategy(PerMethod.class)
+@ExamReactorStrategy(PerSuite.class)
 public class P3_DynamicAnimalsTest {
 
 	@Inject
@@ -31,17 +32,10 @@ public class P3_DynamicAnimalsTest {
 
 	@Configuration
 	Option[] configure() {
-        System.out.println(new java.io.File( "." ).getCanonicalPath());
-		[
+        [
             junitBundles(),
-            mavenBundle('org.codehaus.groovy', 'groovy-all'),
-            bundle('file:../bundles/logger-1.0.0.jar'),
-            bundle('file:../bundles/contracts-1.0.0.jar'),
-            bundle('file:../bundles/animal1-1.0.0.jar'),
-            bundle('file:../bundles/animal2-1.0.0.jar'),
-            bundle('file:../bundles/animal3-1.0.0.jar'),
-            bundle('file:../bundles/zoo-1.0.0.jar')
-		] as Option[]
+            mavenBundle('org.codehaus.groovy', 'groovy-all')
+		] + allBundles('../bundles') as Option[]
 	}
 
 	@Before

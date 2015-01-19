@@ -12,17 +12,17 @@ public class animal1 implements Animal {
 
     @Override
     public String getSpecies() {
-        return null;
+        return "co za ssak";
     }
 
     @Override
     public String getName() {
-        return null;
+        return "jestę jednorożcę";
     }
 
     @Override
     public String getStatus() {
-        return null;
+        return "rzygam tęczo";
     }
 
     @Override

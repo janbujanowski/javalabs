@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component xmlns="http://www.osgi.org/xmlns/scr/v1.1.0" name="zoo">
-    <implementation class="pk.labs.LabD.zoo.Zoo" />
-    <service>
-        <provide interface="pk.labs.LabD.zoo.Zoo"/>
-    </service>
-    <!--dodaje bindy do przydzielania akcji i zwierzat do zoo
-    dzieki temu osgi automatycznie bedzie rejestrowal nowe zwierzeta
-    i nowe akcje w zoo-->
-    <reference
-        name="animal"
-        interface="pk.labs.LabD.contracts.Animal"
-        cardinality="0..n"
-        policy="dynamic"
-        bind="addAnimal"
-        unbind="removeAnimal"/>
-    <reference
-        name="action"
-        interface="pk.labs.LabD.contracts.AnimalAction"
-        cardinality="0..n"
-        policy="dynamic"
-        bind="addAction"
-        unbind="removeAction"/>
+	<implementation class="pk.labs.LabD.zoo.Zoo" />
+	<service>
+		<provide interface="pk.labs.LabD.zoo.Zoo"/>
+	</service>
+	<reference
+			cardinality="0..n"
+			policy="dynamic"
+			interface="pk.labs.LabD.contracts.Animal"
+			name="animal"
+			bind="addAnimal"
+			unbind="removeAnimal"
+			/>
+	<reference
+			cardinality="0..n"
+			policy="dynamic"
+			interface="pk.labs.LabD.contracts.AnimalAction"
+			name="action"
+			bind="addAction"
+			unbind="removeAction"
+			/>
 </component>

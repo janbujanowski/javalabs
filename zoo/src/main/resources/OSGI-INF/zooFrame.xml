@@ -6,6 +6,7 @@
 			interface="pk.labs.LabD.contracts.Logger"
 			bind="bindLogger"
 			unbind="unbindLogger"/>
+
 	<reference
 			name="zoo"
 			interface="pk.labs.LabD.zoo.Zoo"

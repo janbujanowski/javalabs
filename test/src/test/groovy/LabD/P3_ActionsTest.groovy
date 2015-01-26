@@ -9,7 +9,7 @@ import org.ops4j.pax.exam.Configuration
 import org.ops4j.pax.exam.Option
 import org.ops4j.pax.exam.junit.PaxExam
 import org.ops4j.pax.exam.spi.reactors.ExamReactorStrategy
-import org.ops4j.pax.exam.spi.reactors.PerSuite
+import org.ops4j.pax.exam.spi.reactors.PerMethod
 import org.osgi.framework.Bundle
 import org.osgi.framework.BundleContext
 import org.osgi.framework.ServiceReference
@@ -17,11 +17,10 @@ import org.osgi.framework.ServiceReference
 import javax.inject.Inject
 
 import static LabD.Utils.allBundles
-import static org.ops4j.pax.exam.CoreOptions.junitBundles
-import static org.ops4j.pax.exam.CoreOptions.mavenBundle
+import static org.ops4j.pax.exam.CoreOptions.*
 
-@RunWith(PaxExam)
-@ExamReactorStrategy(PerSuite)
+@RunWith(PaxExam.class)
+@ExamReactorStrategy(PerMethod.class)
 public class P3_ActionsTest {
 
 	@Inject
@@ -38,7 +37,7 @@ public class P3_ActionsTest {
 	@Configuration
 	Option[] configure() {
         [
-                mavenBundle('org.apache.felix', 'org.apache.felix.scr', '1.8.2'),
+                mavenBundle('org.apache.felix', 'org.apache.felix.scr', '1.8.0'),
                 junitBundles(),
                 mavenBundle('org.codehaus.groovy', 'groovy-all')
         ] + allBundles('../bundles') as Option[]
@@ -143,14 +142,13 @@ public class P3_ActionsTest {
 	}
 
 	@Test
-	void "All actions should have at least name property type of String"() {
+	void "All actions should have at least name property"() {
 		// given
 		def keys = [] as Set
 
 		// then
 		getActionComponents().each {
 			assert it.properties['name']
-			assert it.properties['name'] instanceof String
 		}
 	}
 
@@ -166,7 +164,7 @@ public class P3_ActionsTest {
 	}
 
 	@Test
-	void "Actions with additional properties shouldn't be achievable for all animals"() {
+	void "Actions with properties shouldn't be achievable for all animals"() {
 		// given
 		def animals = getAnimals()
 		def actions = [:]
@@ -192,27 +190,6 @@ public class P3_ActionsTest {
 				assert !actions[action].containsAll(animals)
 			}
 		}
-	}
-
-	@Test
-	void "All actions should set status for animal"() {
-		// given
-		def animals = getAnimals()
-		def allActions = getActionComponents()
-		def defaultStatus = 'nic nie robię'
-		def statuses = []
-
-		// when
-		animals.each { animal ->
-			zoo.getActionsFor([animal]).each { action ->
-				animal.status = defaultStatus
-				action.execute(animal)
-				statuses << animal.status
-			}
-		}
-
-		// then
-		assert !(defaultStatus in statuses)
 	}
 
 	@Test

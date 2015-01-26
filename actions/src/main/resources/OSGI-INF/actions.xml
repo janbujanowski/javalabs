@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<components  xmlns="http://www.osgi.org/xmlns/scr/v1.1.0">
+    <component name="action1">
+        <!--klasa z akcja-->  
+        <implementation class="pk.labs.LabD.actions.internal.Action1" />
+        <!--wskazanie interfejsu ktory implementuje te klase-->
+        <service>
+            <provide interface="pk.labs.LabD.contracts.AnimalAction"/>
+        </service>
+        <!--ustawienie wartosci dla akcji-->
+        <!--nazwa tej akcji-->
+        <property name="name" value="Zaspiewaj"/>
+        <!--speciec jako filtr ktory zwierzak moze te akcje wykonywac-->
+        <property name="species" value="ssak"/>
+    </component>
+
+    <component name="action2">
+        <implementation class="pk.labs.LabD.actions.internal.Action2" />
+        <service>
+            <provide interface="pk.labs.LabD.contracts.AnimalAction"/>
+        </service>
+        <property name="name" value="Zjedz"/>
+        <property name="species" value="tiger"/>
+    </component>
+
+    <component name="action3">
+        <implementation class="pk.labs.LabD.actions.internal.Action3" />
+        <service>
+            <provide interface="pk.labs.LabD.contracts.AnimalAction"/>
+        </service>
+        <property name="name" value="Poskacz"/>
+        <property name="species" value="ssak"/>
+    </component>
+</components>

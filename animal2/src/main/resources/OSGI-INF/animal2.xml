@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.osgi.org/xmlns/scr/v1.1.0" name="animal2">
+    <implementation class="pk.labs.LabD.common.AbstractAnimal" />
+    <service>
+        <provide interface="pk.labs.LabD.contracts.Animal"/>
+    </service>
+    <!-- ustawiam poczatkowe zmienne -->    
+    <property name="name" value="kot" />
+    <property name="species" value="ssak" />
+    <property name="status" value="" />
+    <!--ustawiam bind do loggera aby powiadomic o przybyciu i odejsciu-->
+    <reference
+        name="logger"
+        interface="pk.labs.LabD.contracts.Logger"
+        bind="bindLogger"
+    />
+</component>

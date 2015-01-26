@@ -10,19 +10,18 @@ import org.ops4j.pax.exam.Option
 import org.ops4j.pax.exam.junit.PaxExam
 import org.ops4j.pax.exam.spi.reactors.ExamReactorStrategy
 import org.ops4j.pax.exam.spi.reactors.PerMethod
-import org.ops4j.pax.exam.spi.reactors.PerSuite
 import org.osgi.framework.Bundle
 import org.osgi.framework.BundleContext
 
 import javax.inject.Inject
 
-import static LabD.Utils.allBundles
 import static org.junit.Assert.assertEquals
-import static org.ops4j.pax.exam.CoreOptions.junitBundles
-import static org.ops4j.pax.exam.CoreOptions.mavenBundle
 
-@RunWith(PaxExam)
-@ExamReactorStrategy(PerSuite)
+import static LabD.Utils.allBundles
+import static org.ops4j.pax.exam.CoreOptions.*
+
+@RunWith(PaxExam.class)
+@ExamReactorStrategy(PerMethod.class)
 public class P2_ExtendedAnimalComponentsTest {
 
 	@Inject
@@ -39,7 +38,7 @@ public class P2_ExtendedAnimalComponentsTest {
 	@Configuration
 	Option[] configure() {
         [
-                mavenBundle('org.apache.felix', 'org.apache.felix.scr', '1.8.2'),
+                mavenBundle('org.apache.felix', 'org.apache.felix.scr', '1.8.0'),
                 junitBundles(),
                 mavenBundle('org.codehaus.groovy', 'groovy-all')
         ] + allBundles('../bundles') as Option[]
@@ -120,7 +119,6 @@ public class P2_ExtendedAnimalComponentsTest {
 	void "Empty zoo shouldn't contain any animal"() {
 		// when
 		getAnimalComponents().each { it.disable() }
-		sleep 10
 
 		// then
 		assertEquals 0, zoo.animals.size()
@@ -166,7 +164,7 @@ public class P2_ExtendedAnimalComponentsTest {
 		// given
 		def classes = [] as Set
 		getAnimalComponents().each {
-			classes << it.componentInstance?.instance?.class
+			classes << it.componentInstance.instance.class
 		}
 
 		// then

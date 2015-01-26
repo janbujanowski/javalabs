@@ -10,49 +10,51 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import pk.labs.LabD.contracts.AnimalAction;
 
 public class Zoo {
 
     private static Zoo instance;
 
-	private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+    private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
-	private Set<Animal> animals = new HashSet<>();
+    private Set<Animal> animals = new HashSet<>();
 
-	private ComponentContext componentContext;
-
+    private ComponentContext componentContext;
 
     public void addAnimal(Animal animal) {
-		Set<Animal> oldAnimals = animals;
-		animals = new HashSet<>();
-		animals.addAll(oldAnimals);
-		if (animals.add(animal))
-			pcs.firePropertyChange("animals", oldAnimals, animals);
-	}
-
-	public void removeAnimal(Animal animal) {
-		Set<Animal> oldAnimals = animals;
-		animals = new HashSet<>();
-		animals.addAll(oldAnimals);
-		if (animals.remove(animal))
+        Set<Animal> oldAnimals = animals;
+        animals = new HashSet<>();
+        animals.addAll(oldAnimals);
+        if (animals.add(animal)) {
             pcs.firePropertyChange("animals", oldAnimals, animals);
-	}
+        }
+    }
 
-	public Set<Animal> getAnimals() {
-		return Collections.unmodifiableSet(animals);
-	}
+    public void removeAnimal(Animal animal) {
+        Set<Animal> oldAnimals = animals;
+        animals = new HashSet<>();
+        animals.addAll(oldAnimals);
+        if (animals.remove(animal)) {
+            pcs.firePropertyChange("animals", oldAnimals, animals);
+        }
+    }
 
-	public int getAnimalsCount() {
-		return animals.size();
-	}
+    public Set<Animal> getAnimals() {
+        return Collections.unmodifiableSet(animals);
+    }
 
-	public void addPropertyChangeListener(PropertyChangeListener listener) {
-		pcs.addPropertyChangeListener(listener);
-	}
+    public int getAnimalsCount() {
+        return animals.size();
+    }
 
-	public void removePropertyChangeListener(PropertyChangeListener listener) {
-		pcs.removePropertyChangeListener(listener);
-	}
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        pcs.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        pcs.removePropertyChangeListener(listener);
+    }
 
     public Set<ActionStub> getActionsFor(Collection<Animal> animals) {
         boolean first = true;
@@ -61,39 +63,58 @@ public class Zoo {
             if (first) {
                 actions.addAll(getActionsFor(animal));
                 first = false;
-            } else
+            } else {
                 actions.retainAll(getActionsFor(animal));
+            }
         }
         Set<ActionStub> stubs = new HashSet<>();
-        for (ServiceReference ref : actions)
+        for (ServiceReference ref : actions) {
             stubs.add(new ActionStub(componentContext, "action", ref));
+        }
         return stubs;
     }
 
     /**
-     * Wyszukuje czynności dostępne dla danego zwięrzęcia
-     * na podstawie metadanych czynności.
+     * Wyszukuje czynności dostępne dla danego zwięrzęcia na podstawie
+     * metadanych czynności.
+     *
      * @param animal zwierzę, dla którego są pobierane czynności
      * @return zbiór referencji na dozwolone czynności
      */
-	public Set<ServiceReference> getActionsFor(Animal animal) {
-        throw new UnsupportedOperationException("Do implementacji!");
-	}
+    public Set<ServiceReference> getActionsFor(Animal animal) {
+        // tworze nowa liste do przechowywania akcji
+        Set<ServiceReference> animalActions = new HashSet<>();
+        for (ServiceReference action : this.actions) {
+            // gdy gatunek nie jest ustawiony(jest rowny null) lub gdy zwierzak pasuje do 
+            // tej akcji
+            // wtedy dodaje go do listy
+            if (action.getProperty("species") == null || animal.getSpecies().equalsIgnoreCase((String) action.getProperty("species"))) {
+                animalActions.add(action);
+            }
+        }
+        return animalActions;
+    }
+    // lista przechowujaca akcje zwierzat
+    private Set<ServiceReference> actions = new HashSet<>();
 
     /**
      * Dodaje czynność zwierzęcia
+     *
      * @param ref referencja na nową usługę czynności
      */
     public void addAction(ServiceReference ref) {
-        // Do implementacji!
+        // dodaje do listy referencje akcji
+        this.actions.add(ref);
     }
 
     /**
      * Usuwa nieaktualną czynność zwierzęcia
+     *
      * @param ref referencja do usuwanej usługi czynności
      */
     void removeAction(ServiceReference ref) {
-        // Do implementacji!
+        // usuwam z listy te referencje
+        this.actions.remove(ref);
     }
 
 }

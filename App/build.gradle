@@ -1,0 +1,7 @@
+apply plugin: 'application'
+
+mainClassName = 'pk.labs.Lab9.App'
+
+dependencies {
+    compile project(':Beans'), project(':Controls')
+}

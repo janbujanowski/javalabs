@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0"
+               name="Nemo"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:schemaLocation="http://www.osgi.org/xmlns/scr/v1.1.0"
+               immediate="true">
+
+    <implementation
+            class="pk.labs.LabD.common.Common"
+            />
+
+    <reference
+            interface="pk.labs.LabD.contracts.Logger"
+            name="logger"
+            bind="setLogger"
+            cardinality="1..1"
+            policy="static"
+            />
+
+    <service>
+        <provide interface="pk.labs.LabD.contracts.Animal"/>
+    </service>
+
+    <property name="name" value="Rybka"/>
+    <property name="species" value="Fish"/>
+
+</scr:component>

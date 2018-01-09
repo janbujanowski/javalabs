@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0"
+               name="Actions"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:schemaLocation="http://www.osgi.org/xmlns/scr/v1.1.0"
+               immediate="true"
+        >
+    <implementation class="pk.labs.LabD.zoo.Zoo"/>
+
+    <service>
+        <provide interface="pk.labs.LabD.contracts.AnimalActions"/>
+    </service>
+
+    <property name="name" value="Animal1"/>
+    <property name="species" value="Dog"/>
+    <property name= "AnimalAction" value = "runs"/>
+
+
+
+</scr:component>

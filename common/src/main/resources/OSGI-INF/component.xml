@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns="http://www.osgi.org/xmlns/scr/v1.1.0" name="AnimalFactory" factory="pk.labs.LabD.common.AnimalFactory">
+    <implementation class="pk.labs.LabD.common.AbstractAnimal"/>
+      <property name="species" value="defaultSpecies"/>
+  <property name="name" value="defaultName"/>
+  <property name="status" value="defaultStatus" />
+</component>

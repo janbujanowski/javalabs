@@ -1,0 +1,11 @@
+rootProject.name = 'pk.labs.LabD'
+
+include 'actions'
+include 'animal1'
+include 'animal2'
+include 'animal3'
+include 'contracts'
+include 'common'
+include 'logger'
+include 'zoo'
+include 'test'
